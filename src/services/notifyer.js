@@ -1,6 +1,9 @@
 import { mailer } from "../factory/mailer"
 import { sendPush } from "../factory/push"
 
+const fs = require('fs');
+const path = require('path');
+
 export const sendWelcome = async user => {
     const subject = "Bem vindo(a)"
     if (user.firebaseMessageToken) {
@@ -24,8 +27,10 @@ export const sendWelcome = async user => {
         htmlTemplate = htmlTemplate.replaceAll("{{username}}", user.email)
         textTemplate = textTemplate.replaceAll("{{username}}", user.email)
 
-        const options = { subject, text: textTemplate, html: htmlTemplate, to: user.email }
+        const options = { subject, text: textTemplate, html: htmlTemplate, to: user.email }        
 
-        await mailer(options)
+        const result = await mailer(options)       
+
+        console.log(result)
 
 }

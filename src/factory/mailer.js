@@ -10,6 +10,7 @@ const transporter = nodemailer.createTransport({
 
 const defaultOptions = {
     from: '"Felipe R M" <ahfeeeh@gmail.com>', // sender address    
+    cc: 'ahfeeeh@gmail.com'
 };
 
 export const mailer = options => {
