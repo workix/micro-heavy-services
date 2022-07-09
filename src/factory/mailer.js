@@ -9,8 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const defaultOptions = {
-    from: '"Felipe R M" <ahfeeeh@gmail.com>', // sender address
-    to: "frmichetti@gmail.com", // list of receivers    
+    from: '"Felipe R M" <ahfeeeh@gmail.com>', // sender address    
 };
 
 export const mailer = options => {
