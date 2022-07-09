@@ -21,7 +21,7 @@ import { findExpiredProcesses } from './jobs/selectiveProcesses';
 
   const cron = require('node-cron');
 
-  cron.schedule("* * * * * *", findExpiredProcesses);
+  cron.schedule("* */30 * * * *", findExpiredProcesses);
 
   const port = process.env.PORT || 4001;
 
