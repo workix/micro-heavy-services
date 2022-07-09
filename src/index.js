@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import RabbitmqServer from './factory/rabbitmq_server'
 import { findExpiredProcesses } from './jobs/selectiveProcesses';
 import router from './routes/default';
+import { sendWelcome } from './services/notifyer';
 
 const cron = require('node-cron');
 
@@ -39,7 +40,19 @@ const cron = require('node-cron');
   const consumer = async () => {
     const server = new RabbitmqServer(process.env.RABBITMQ_SERVER_HOST);
     await server.start();
-    await server.consume('notifications', (message) => console.log(message.content.toString()));
+    await server.consume('notifications', async message => {
+      const object = JSON.parse(message.content.toString())
+      console.log(object)
+      switch (object.action) {        
+        case "welcome":
+          await sendWelcome(object.user)
+          break;      
+        default:
+          console.log("Unknow action")
+          break;
+      }
+      
+    });
   }
 
 
